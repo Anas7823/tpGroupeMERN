@@ -17,14 +17,25 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    // recuperer l'id depuis le token
-    const id = req.headers.authorization.split(" ")[1];
-    console.log(id);
-    const user = await User.findById(id);
+    const token = req.headers.authorization?.split(" ")[1]; // Récupérer le token
+    if (!token) {
+      return res.status(401).send({ error: "Token not provided" });
+    }
+
+    // Décoder le token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Remplacez "your_secret_key" par votre clé secrète
+    const userId = decoded.id; // Assurez-vous que le token inclut un champ `id`
+    
+    console.log(userId);
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
     res.status(200).send(user);
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
+
 };
 
 // Inscription
