@@ -16,17 +16,17 @@ function MesProduits() {
         })
         .then(res => {
             setmyUser(res.data)
-            console.log(res.data)
+            console.log(myUser)
         })
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3002/product/user/:id', {
+        axios.get(`http://localhost:3002/product/user/${myUser._id}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
-        .then(res => {
+        .then(res => {            
             setMesProduits(res.data)
             console.log(res.data)
         })

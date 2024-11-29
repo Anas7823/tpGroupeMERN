@@ -29,25 +29,30 @@ const getUserById = async (req, res) => {
 
 const getMyUser = async (req, res) => {
   try {
-    console.log("req.body : " + req.body);
-    if (!req.body.password) {
-      return res.status(400).send({ error: "Password is required" });
+    // Vérification que le token est présent
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return res.status(401).send({ error: 'Token manquant ou invalide' });
     }
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const user = new User({
-      ...req.body,
-      password: hashedPassword,
-    });
+    // Décodage du token pour récupérer l'id utilisateur
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Remplacez 'votre_clé_secrète' par la clé utilisée pour signer le JWT
+    const id = decoded.id;
 
-    await user.save();
+    // Recherche de l'utilisateur dans la base de données
+    const user = await User.findById(id);
+    
+    if (!user) {
+      return res.status(404).send({ error: 'Utilisateur introuvable' });
+    }
 
-    res.status(201).send(user);
+    // Envoi de l'utilisateur en réponse
+    res.status(200).send(user);
   } catch (error) {
+    // Gestion des erreurs
     res.status(400).send({ error: error.message });
   }
 };
-
 // Inscription
 const registerUser = async (req, res) => {
   try {
