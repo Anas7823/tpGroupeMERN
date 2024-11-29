@@ -17,25 +17,35 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1]; // Récupérer le token
-    if (!token) {
-      return res.status(401).send({ error: "Token not provided" });
-    }
-
-    // Décoder le token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Remplacez "your_secret_key" par votre clé secrète
-    const userId = decoded.id; // Assurez-vous que le token inclut un champ `id`
-    
-    console.log(userId);
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).send({ error: "User not found" });
-    }
+    // recuperer l'id depuis le token
+    const id = req.params.id;
+    console.log(id);
+    const user = await User.findById(id);
     res.status(200).send(user);
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
+};
 
+const getMyUser = async (req, res) => {
+  try {
+    console.log("req.body : " + req.body);
+    if (!req.body.password) {
+      return res.status(400).send({ error: "Password is required" });
+    }
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    const user = new User({
+      ...req.body,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    res.status(201).send(user);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
 };
 
 // Inscription
@@ -116,4 +126,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, getUserById, loginUser, getAllUsers, updateUser, deleteUser };
+module.exports = { registerUser, getUserById, getMyUser, loginUser, getAllUsers, updateUser, deleteUser };
