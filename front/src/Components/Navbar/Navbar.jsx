@@ -7,6 +7,7 @@ const navigation = [
   { name: 'Menu', href: '/produits', current: false },
   { name: 'Mes Produits', href: '/mesProduits', current: false },
   { name: 'Liste des Utilisateurs', href: '/UserList', current: false },
+  { name: 'Ajouter des Produits', href: '/AjouterProduit', current: false },
 ];
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

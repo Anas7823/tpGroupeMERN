@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AjouterProduit.css';
 
 function AjouterProduit() {
     const [formData, setFormData] = useState({

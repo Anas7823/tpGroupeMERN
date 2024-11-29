@@ -1,0 +1,6 @@
+input, textarea{
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
+}
