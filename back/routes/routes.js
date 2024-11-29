@@ -12,7 +12,7 @@ router.post("/user/login", loginUser);
 router.put("/user/:id", authMiddleware, updateUser);
 router.delete("/user/:id", authMiddleware, deleteUser);
 
-router.get("/products",authMiddleware, getAllProducts);
+router.get("/products", authMiddleware, getAllProducts);
 router.get("/product/:id",authMiddleware, getProductById);
 router.get("/product/user/:id",authMiddleware, getUserProducts);
 router.get("/product/category/:category",authMiddleware, getCategoryProducts);

@@ -30,6 +30,7 @@ function Produits() {
             <div className="title_produits">Nos produits</div>
             <div className="btn_category">
                 <button onClick={() => changeTriProduits('Tous')} className='active'>Tous</button>
+                <button onClick={() => changeTriProduits('Entrées')}>Entrées</button>
                 <button onClick={() => changeTriProduits('Plats')}>Plats</button>
                 <button onClick={() => changeTriProduits('Desserts')}>Desserts</button>
                 <button onClick={() => changeTriProduits('Boissons')}>Boissons</button>
