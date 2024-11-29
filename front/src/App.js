@@ -8,6 +8,7 @@ import DetailsProduit from './Components/DetailsProduit/DetailsProduit';
 import MesProduits from './Components/MesProduits/MesProduits';
 import Home from './Components/Home/Home'
 import UserList from './Components/UserList/UserList'
+import AjouterProduit from './Components/AjouterProduit/AjouterProduit'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path='/UserList' element={<UserList/>} />
+        <Route path='/AjouterProduit' element={<AjouterProduit/>} />
       </Routes>
     </BrowserRouter>
   );
