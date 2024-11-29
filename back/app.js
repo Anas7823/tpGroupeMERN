@@ -5,7 +5,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-const PORT = 8080;
+const PORT = 3002;
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/tpgroupe", {});
